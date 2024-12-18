@@ -20,7 +20,7 @@ int http_request(const char* method, const char* url, String& payload, const Str
     
     if (method == "POST")
     { // Si el método es POST
-      http.addHeader("Content-Type", "application/json"); // Cabecera necesaria para JSON
+      http.addHeader("Content-Type", "application/json"); // Cabecera necesaria para que el servidor sepa que los mensajes enviados son tipo JSON
       httpResponseCode = http.POST(postData); // Realiza la petición POST
     }
     else if (method == "GET")
