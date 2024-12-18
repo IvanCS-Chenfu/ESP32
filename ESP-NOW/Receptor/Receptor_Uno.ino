@@ -3,28 +3,33 @@
 #include <WiFi.h>
 
 // Estructura para recibir mensajes
-typedef struct {
+typedef struct 
+{
   char mensaje[32];  // Mensaje recibido
+  int contador;      // Ejemplo de otro dato que se recibe
 } mensaje_t;
 
 mensaje_t datosRecibidos;
 
 // Callback al recibir datos
-void onDataRecv(const uint8_t *mac_addr, const uint8_t *data, int len) {
+void onDataRecv(const uint8_t *mac_addr, const uint8_t *data, int len)
+{
   memcpy(&datosRecibidos, data, sizeof(datosRecibidos));
 
   Serial.print("Mensaje recibido: ");
   Serial.println(datosRecibidos.mensaje);
 
   Serial.print("Desde la MAC: ");
-  for (int i = 0; i < 6; i++) {
+  for (int i = 0; i < 6; i++)
+  {
     Serial.printf("%02X", mac_addr[i]);
     if (i < 5) Serial.print(":");
   }
   Serial.println();
 }
 
-void setup() {
+void setup() 
+{
   Serial.begin(115200);
 
   // Configuración WiFi
@@ -33,7 +38,8 @@ void setup() {
   Serial.println(WiFi.macAddress());
 
   // Inicializar ESP-NOW
-  if (esp_now_init() != ESP_OK) {
+  if (esp_now_init() != ESP_OK) 
+  {
     Serial.println("Error al inicializar ESP-NOW");
     return;
   }
@@ -42,7 +48,8 @@ void setup() {
   esp_now_register_recv_cb(onDataRecv);
 }
 
-void loop() {
+void loop() 
+{
   // Mantener el programa activo
   delay(1000);
 }
