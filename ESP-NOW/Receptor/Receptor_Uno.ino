@@ -12,17 +12,20 @@ typedef struct
 mensaje_t datosRecibidos;
 
 // Callback al recibir datos
-void onDataRecv(const uint8_t *mac_addr, const uint8_t *data, int len)
+void onDataRecv(const esp_now_recv_info *info, const uint8_t *data, int len) 
 {
+  // Copiar los datos recibidos en la estructura
   memcpy(&datosRecibidos, data, sizeof(datosRecibidos));
 
+  // Mostrar el mensaje recibido
   Serial.print("Mensaje recibido: ");
   Serial.println(datosRecibidos.mensaje);
 
+  // Mostrar la MAC del remitente
   Serial.print("Desde la MAC: ");
-  for (int i = 0; i < 6; i++)
+  for (int i = 0; i < 6; i++) 
   {
-    Serial.printf("%02X", mac_addr[i]);
+    Serial.printf("%02X", info->src_addr[i]);
     if (i < 5) Serial.print(":");
   }
   Serial.println();
