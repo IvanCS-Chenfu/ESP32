@@ -53,7 +53,7 @@ void mostrarInformacionESP32() {
   // Máscara de subred
   IPAddress subnet = WiFi.subnetMask();
   Serial.print("Máscara de Subred: ");
-  Serial.println(subnet));
+  Serial.println(subnet);
 
   // Dirección IP del DNS primario
   IPAddress dns = WiFi.dnsIP();
